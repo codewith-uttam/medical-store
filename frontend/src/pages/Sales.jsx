@@ -315,11 +315,31 @@ export default function Sales() {
   const handlePrint = () => {
     if (!activeBill) return;
     const html = buildInvoiceHTML(activeBill, activeItems);
-    const w = window.open('', '_blank', 'width=850,height=950,scrollbars=yes');
-    if (!w) { alert('Popup blocked! Please allow popups for this site.'); return; }
-    w.document.open();
-    w.document.write(html);
-    w.document.close();
+    
+    // Create an invisible iframe to handle printing without popups
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = 'none';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+
+    // Focus the iframe and trigger the print dialog
+    iframe.contentWindow.focus();
+    setTimeout(() => {
+      iframe.contentWindow.print();
+      // Remove the iframe after printing (or if they cancel)
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+      }, 100);
+    }, 250); // slight delay to ensure CSS styles are fully applied
   };
 
   const closeModal = () => { setModalOpen(false); setActiveBill(null); setActiveItems([]); };
