@@ -376,7 +376,7 @@ const Billing = () => {
   const [invoiceItems, setInvoiceItems] = useState([]);
 
   const fetchMedicines = () => {
-    fetch('https://sad-islands-shave.loca.lt/api/medicines', { headers: authHeaders() })
+    fetch('https://ancient-penguin-79.loca.lt/api/medicines', { headers: authHeaders() })
       .then(r => r.json())
       .then(data => setMedicines(Array.isArray(data) ? data.filter(m => m.quantity > 0) : []))
       .catch(console.error);
@@ -410,7 +410,7 @@ const Billing = () => {
     if (cart.length === 0) return;
     setGenerating(true);
     try {
-      const res = await fetch('https://sad-islands-shave.loca.lt/api/bills', {
+      const res = await fetch('https://ancient-penguin-79.loca.lt/api/bills', {
         method: 'POST',
         headers: authHeaders(),
         body: JSON.stringify({
@@ -422,7 +422,7 @@ const Billing = () => {
       const data = await res.json();
       if (!res.ok) { alert(data.error || 'Failed to generate bill'); setGenerating(false); return; }
 
-      const br = await fetch(`https://sad-islands-shave.loca.lt/api/bills/${data.billId}`, { headers: authHeaders() });
+      const br = await fetch(`https://ancient-penguin-79.loca.lt/api/bills/${data.billId}`, { headers: authHeaders() });
       const bd = await br.json();
       setInvoiceBill(bd);
       setInvoiceItems(bd.items || []);

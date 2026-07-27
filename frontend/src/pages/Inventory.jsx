@@ -18,7 +18,7 @@ const Inventory = () => {
   });
 
   const fetchMedicines = () => {
-    fetch('https://sad-islands-shave.loca.lt/api/medicines', { headers: authHeaders() })
+    fetch('https://ancient-penguin-79.loca.lt/api/medicines', { headers: authHeaders() })
       .then(res => res.json())
       .then(data => setMedicines(data))
       .catch(err => console.error(err));
@@ -53,8 +53,8 @@ const Inventory = () => {
     e.preventDefault();
     const method = formData.id ? 'PUT' : 'POST';
     const url = formData.id 
-      ? `https://sad-islands-shave.loca.lt/api/medicines/${formData.id}`
-      : 'https://sad-islands-shave.loca.lt/api/medicines';
+      ? `https://ancient-penguin-79.loca.lt/api/medicines/${formData.id}`
+      : 'https://ancient-penguin-79.loca.lt/api/medicines';
 
     fetch(url, {
       method,
@@ -71,7 +71,7 @@ const Inventory = () => {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this medicine?")) {
-      fetch(`https://sad-islands-shave.loca.lt/api/medicines/${id}`, { method: 'DELETE', headers: authHeaders() })
+      fetch(`https://ancient-penguin-79.loca.lt/api/medicines/${id}`, { method: 'DELETE', headers: authHeaders() })
         .then(() => fetchMedicines())
         .catch(err => console.error(err));
     }
