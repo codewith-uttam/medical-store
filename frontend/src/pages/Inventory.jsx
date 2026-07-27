@@ -165,7 +165,7 @@ const Inventory = () => {
                   <label>Generic Name</label>
                   <input type="text" name="generic_name" value={formData.generic_name} onChange={handleInputChange} />
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="form-row-2">
                   <div className="input-group">
                     <label>Batch No</label>
                     <input type="text" name="batch_no" value={formData.batch_no} onChange={handleInputChange} required />
@@ -175,7 +175,7 @@ const Inventory = () => {
                     <input type="date" name="expiry_date" value={formData.expiry_date} onChange={handleInputChange} required />
                   </div>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="form-row-2">
                   <div className="input-group">
                     <label>Quantity</label>
                     <input type="number" name="quantity" value={formData.quantity} onChange={handleInputChange} required min="0" />

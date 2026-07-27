@@ -720,4 +720,28 @@ tbody tr:hover {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+
+  .billing-layout, .add-item-row, .form-row-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Common Layout Utilities */
+.billing-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.add-item-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 16px;
+  align-items: end;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }

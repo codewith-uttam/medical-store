@@ -471,7 +471,7 @@ const Billing = () => {
       <h1>Billing &amp; POS</h1>
       <p className="subtitle">Create invoices and process sales</p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+      <div className="billing-layout">
 
         {/* ── Left: Cart ── */}
         <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -489,7 +489,7 @@ const Billing = () => {
           </div>
 
           {/* Add item row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr auto', gap: '16px', alignItems: 'end' }}>
+          <div className="add-item-row">
             <div className="input-group" style={{ marginBottom: 0 }}>
               <label>Select Medicine</label>
               <select id="billing-medicine-select" value={selectedMed} onChange={e => setSelectedMed(e.target.value)}>
