@@ -385,7 +385,7 @@ const Billing = () => {
 
   const addToCart = () => {
     if (!selectedMed || quantity <= 0) return;
-    const med = medicines.find(m => m.id === parseInt(selectedMed));
+    const med = medicines.find(m => String(m.id) === String(selectedMed));
     if (!med) return;
     if (quantity > med.quantity) { alert(`Only ${med.quantity} available in stock.`); return; }
     const idx = cart.findIndex(i => i.medicine_id === med.id);
