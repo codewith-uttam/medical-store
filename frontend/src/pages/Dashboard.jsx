@@ -11,7 +11,7 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/dashboard`, { headers: authHeaders() })
+    fetch(`${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/dashboard`, { headers: authHeaders() })
       .then(res => res.json())
       .then(data => setData(data))
       .catch(err => console.error(err));
