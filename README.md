@@ -2,7 +2,7 @@
 
 A modern, full-stack Point of Sale (POS) and Inventory Management web application designed specifically for medical stores and pharmacies. 
 
-![Swastik Medical Store](https://medical-store-smoky.vercel.app/favicon.ico)
+
 
 ---
 
