@@ -70,7 +70,7 @@ app.post('/api/login', async (req, res) => {
         const user = await User.findOne({ username });
         if (!user) return res.status(401).json({ error: 'Invalid username or password.' });
 
-        const valid = bcrypt.compareSync(password, user.password_hash);
+        const valid = await bcrypt.compare(password, user.password_hash);
         if (!valid) return res.status(401).json({ error: 'Invalid username or password.' });
 
         const token = jwt.sign(
