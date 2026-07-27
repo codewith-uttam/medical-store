@@ -299,6 +299,25 @@ app.get('/api/bills/:id', authenticateToken, async (req, res) => {
     }
 });
 
+app.delete('/api/bills/:id', authenticateToken, async (req, res) => {
+    try {
+        const bill = await Bill.findById(req.params.id);
+        if (!bill) return res.status(404).json({ error: 'Bill not found' });
+        
+        // Restore inventory
+        for (let item of bill.items) {
+            await Medicine.findByIdAndUpdate(item.medicine_id, {
+                $inc: { quantity: item.quantity }
+            });
+        }
+        
+        await Bill.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Bill deleted and inventory restored successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.listen(port, () => {
     console.log('Server running on port ' + port);
 });

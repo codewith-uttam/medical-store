@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ReceiptText, Printer, Eye, X, CheckCircle, Search, Calendar } from 'lucide-react';
+import { ReceiptText, Printer, Eye, Trash2, X, CheckCircle, Search, Calendar } from 'lucide-react';
 import { useAuth } from '../AuthContext';
 
 /* ── Store details (keep in sync with Billing.jsx) ── */
@@ -311,6 +311,27 @@ export default function Sales() {
     setLoadingBill(false);
   };
 
+  /* Delete a bill and restore its inventory */
+  const deleteBill = async (billId) => {
+    if (!window.confirm("Are you sure you want to delete this bill? The inventory for its items will be restored.")) {
+      return;
+    }
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/bills/${billId}`, {
+        method: 'DELETE',
+        headers: authHeaders()
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to delete bill');
+      }
+      // Remove from UI
+      setBills(bills.filter(b => b.id !== billId));
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   /* Print popup */
   const handlePrint = () => {
     if (!activeBill) return;
@@ -477,6 +498,13 @@ export default function Sales() {
                           onClick={() => viewInvoice(bill.id)}
                         >
                           <Eye size={15} /> View
+                        </button>
+                        <button
+                          className="btn btn-primary"
+                          style={{ padding: '6px 14px', fontSize: '13px', background: 'transparent', border: '1px solid var(--danger)', color: 'var(--danger)', marginLeft: '8px' }}
+                          onClick={() => deleteBill(bill.id)}
+                        >
+                          <Trash2 size={15} /> Delete
                         </button>
                       </td>
                     </tr>
