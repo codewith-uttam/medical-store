@@ -288,7 +288,7 @@ export default function Sales() {
   /* Fetch all bills */
   const fetchBills = () => {
     setLoading(true);
-    fetch('http://localhost:5000/api/bills', { headers: authHeaders() })
+    fetch('https://sad-islands-shave.loca.lt/api/bills', { headers: authHeaders() })
       .then(r => r.json())
       .then(data => { setBills(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
@@ -303,7 +303,7 @@ export default function Sales() {
     setActiveBill(null);
     setActiveItems([]);
     try {
-      const res = await fetch(`http://localhost:5000/api/bills/${billId}`, { headers: authHeaders() });
+      const res = await fetch(`https://sad-islands-shave.loca.lt/api/bills/${billId}`, { headers: authHeaders() });
       const data = await res.json();
       setActiveBill(data);
       setActiveItems(data.items || []);

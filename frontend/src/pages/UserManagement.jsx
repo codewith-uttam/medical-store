@@ -21,7 +21,7 @@ export default function UserManagement() {
 
   const fetchUsers = () => {
     setLoading(true);
-    fetch('http://localhost:5000/api/users', { headers: authHeaders() })
+    fetch('https://sad-islands-shave.loca.lt/api/users', { headers: authHeaders() })
       .then(r => r.json())
       .then(data => { setUsers(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
@@ -72,8 +72,8 @@ export default function UserManagement() {
       if (form.password) body.password = form.password;
 
       const url = editTarget
-        ? `http://localhost:5000/api/users/${editTarget.id}`
-        : 'http://localhost:5000/api/users';
+        ? `https://sad-islands-shave.loca.lt/api/users/${editTarget.id}`
+        : 'https://sad-islands-shave.loca.lt/api/users';
       const method = editTarget ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -95,7 +95,7 @@ export default function UserManagement() {
 
   /* ── Delete ── */
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+    const res = await fetch(`https://sad-islands-shave.loca.lt/api/users/${id}`, {
       method: 'DELETE',
       headers: authHeaders(),
     });

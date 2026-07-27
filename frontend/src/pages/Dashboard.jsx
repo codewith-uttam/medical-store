@@ -11,7 +11,7 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/dashboard', { headers: authHeaders() })
+    fetch('https://sad-islands-shave.loca.lt/api/dashboard', { headers: authHeaders() })
       .then(res => res.json())
       .then(data => setData(data))
       .catch(err => console.error(err));
