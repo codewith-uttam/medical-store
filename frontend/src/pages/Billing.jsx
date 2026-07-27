@@ -422,7 +422,7 @@ const Billing = () => {
       const data = await res.json();
       if (!res.ok) { alert(data.error || 'Failed to generate bill'); setGenerating(false); return; }
 
-      const br = await fetch(`http://localhost:5000/api/bills/${data.billId}`, { headers: authHeaders() });
+      const br = await fetch(`${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/bills/${data.billId}`, { headers: authHeaders() });
       const bd = await br.json();
       setInvoiceBill(bd);
       setInvoiceItems(bd.items || []);

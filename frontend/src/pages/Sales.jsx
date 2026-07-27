@@ -303,7 +303,7 @@ export default function Sales() {
     setActiveBill(null);
     setActiveItems([]);
     try {
-      const res = await fetch(`http://localhost:5000/api/bills/${billId}`, { headers: authHeaders() });
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/bills/${billId}`, { headers: authHeaders() });
       const data = await res.json();
       setActiveBill(data);
       setActiveItems(data.items || []);

@@ -53,7 +53,7 @@ const Inventory = () => {
     e.preventDefault();
     const method = formData.id ? 'PUT' : 'POST';
     const url = formData.id 
-      ? `http://localhost:5000/api/medicines/${formData.id}`
+      ? `${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/medicines/${formData.id}`
       : `${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/medicines`;
 
     fetch(url, {
@@ -71,7 +71,7 @@ const Inventory = () => {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this medicine?")) {
-      fetch(`http://localhost:5000/api/medicines/${id}`, { method: 'DELETE', headers: authHeaders() })
+      fetch(`${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/medicines/${id}`, { method: 'DELETE', headers: authHeaders() })
         .then(() => fetchMedicines())
         .catch(err => console.error(err));
     }

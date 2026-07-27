@@ -72,7 +72,7 @@ export default function UserManagement() {
       if (form.password) body.password = form.password;
 
       const url = editTarget
-        ? `http://localhost:5000/api/users/${editTarget.id}`
+        ? `${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/users/${editTarget.id}`
         : `${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/users`;
       const method = editTarget ? 'PUT' : 'POST';
 
@@ -95,7 +95,7 @@ export default function UserManagement() {
 
   /* ── Delete ── */
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/users/${id}`, {
       method: 'DELETE',
       headers: authHeaders(),
     });
