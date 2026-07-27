@@ -288,7 +288,7 @@ export default function Sales() {
   /* Fetch all bills */
   const fetchBills = () => {
     setLoading(true);
-    fetch('https://ancient-penguin-79.loca.lt/api/bills', { headers: authHeaders() })
+    fetch(`${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/bills`, { headers: authHeaders() })
       .then(r => r.json())
       .then(data => { setBills(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
@@ -303,7 +303,7 @@ export default function Sales() {
     setActiveBill(null);
     setActiveItems([]);
     try {
-      const res = await fetch(`https://ancient-penguin-79.loca.lt/api/bills/${billId}`, { headers: authHeaders() });
+      const res = await fetch(`http://localhost:5000/api/bills/${billId}`, { headers: authHeaders() });
       const data = await res.json();
       setActiveBill(data);
       setActiveItems(data.items || []);

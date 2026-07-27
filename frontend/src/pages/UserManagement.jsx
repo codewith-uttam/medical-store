@@ -21,7 +21,7 @@ export default function UserManagement() {
 
   const fetchUsers = () => {
     setLoading(true);
-    fetch('https://ancient-penguin-79.loca.lt/api/users', { headers: authHeaders() })
+    fetch(`${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/users`, { headers: authHeaders() })
       .then(r => r.json())
       .then(data => { setUsers(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
@@ -72,8 +72,8 @@ export default function UserManagement() {
       if (form.password) body.password = form.password;
 
       const url = editTarget
-        ? `https://ancient-penguin-79.loca.lt/api/users/${editTarget.id}`
-        : 'https://ancient-penguin-79.loca.lt/api/users';
+        ? `http://localhost:5000/api/users/${editTarget.id}`
+        : `${import.meta.env.VITE_API_URL || 'https://medical-store-jdol.vercel.app'}/api/users`;
       const method = editTarget ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -95,7 +95,7 @@ export default function UserManagement() {
 
   /* ── Delete ── */
   const handleDelete = async (id) => {
-    const res = await fetch(`https://ancient-penguin-79.loca.lt/api/users/${id}`, {
+    const res = await fetch(`http://localhost:5000/api/users/${id}`, {
       method: 'DELETE',
       headers: authHeaders(),
     });

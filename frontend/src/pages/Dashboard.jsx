@@ -11,7 +11,7 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    fetch('https://ancient-penguin-79.loca.lt/api/dashboard', { headers: authHeaders() })
+    fetch(`${import.meta.env.VITE_API_URL}/api/dashboard`, { headers: authHeaders() })
       .then(res => res.json())
       .then(data => setData(data))
       .catch(err => console.error(err));
