@@ -27,6 +27,7 @@ export function AuthProvider({ children }) {
   const authHeaders = () => ({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
+    'Bypass-Tunnel-Reminder': 'true'
   });
 
   const isAuthenticated = !!token;

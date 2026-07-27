@@ -20,7 +20,10 @@ export default function Login() {
     try {
       const res = await fetch('https://ancient-penguin-79.loca.lt/api/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Bypass-Tunnel-Reminder': 'true'
+        },
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
