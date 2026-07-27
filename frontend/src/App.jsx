@@ -1,9 +1,9 @@
 // 1. IMPORTING TOOLS AND PAGES
-import React from 'react';
+import React, { useState } from 'react';
 // These help us move between different pages without reloading the whole website (like a mobile app)
 import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 // These are little vector icons from the 'lucide-react' library
-import { LayoutDashboard, Pill, ReceiptText, Activity, LogOut, UsersRound, FileText } from 'lucide-react';
+import { LayoutDashboard, Pill, ReceiptText, Activity, LogOut, UsersRound, FileText, Menu, X } from 'lucide-react';
 
 // Importing all the different pages our app has
 import Dashboard from './pages/Dashboard';
@@ -24,6 +24,7 @@ import ProtectedRoute from './components/ProtectedRoute'; // This blocks logged-
 function AppLayout() {
   const { logout, user } = useAuth(); // Get the current logged-in user, and the ability to log out
   const navigate = useNavigate();     // Allows us to redirect the user to a different page
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // What happens when someone clicks "Logout"?
   const handleLogout = () => {
@@ -31,43 +32,69 @@ function AppLayout() {
     navigate('/login');   // 2. Send them back to the login screen
   };
 
+  // Close sidebar when a link is clicked on mobile
+  const handleNavClick = () => {
+    if (window.innerWidth <= 768) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <div className="app-container">
       
+      {/* ─── MOBILE HEADER ─── */}
+      <div className="mobile-header">
+        <div className="mobile-logo">
+          <Activity size={24} color="#f59e0b" />
+          <span>Swastik Medical</span>
+        </div>
+        <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(true)}>
+          <Menu size={24} />
+        </button>
+      </div>
+
+      {/* ─── OVERLAY FOR MOBILE SIDEBAR ─── */}
+      {isMobileMenuOpen && (
+        <div className="sidebar-overlay" onClick={() => setIsMobileMenuOpen(false)}></div>
+      )}
+
       {/* ─── THE LEFT SIDEBAR ─── */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
         
         {/* The Top Logo Area */}
         <div className="sidebar-logo">
           <Activity size={32} color="#f59e0b" />
           <span>Swastik Medical</span>
+          <button className="mobile-close-btn" onClick={() => setIsMobileMenuOpen(false)}>
+            <X size={24} />
+          </button>
         </div>
 
         {/* The Navigation Buttons (Links) */}
         <nav className="nav-links">
           
           {/* NavLink automatically turns orange ("active") when we are on that exact page */}
-          <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} end>
+          <NavLink to="/" onClick={handleNavClick} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} end>
             <LayoutDashboard size={20} />
             Dashboard
           </NavLink>
           
-          <NavLink to="/inventory" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+          <NavLink to="/inventory" onClick={handleNavClick} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             <Pill size={20} />
             Inventory
           </NavLink>
           
-          <NavLink to="/billing" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+          <NavLink to="/billing" onClick={handleNavClick} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             <ReceiptText size={20} />
             Billing
           </NavLink>
           
-          <NavLink to="/users" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+          <NavLink to="/users" onClick={handleNavClick} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             <UsersRound size={20} />
             Users
           </NavLink>
           
-          <NavLink to="/sales" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+          <NavLink to="/sales" onClick={handleNavClick} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             <FileText size={20} />
             Sales
           </NavLink>
