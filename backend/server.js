@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const connectDB = require('./config/db');
+const mongoose = require('mongoose');
 const User = require('./models/User');
 const Medicine = require('./models/Medicine');
 const Bill = require('./models/Bill');
@@ -52,6 +53,11 @@ function authenticateToken(req, res, next) {
 // ==========================================
 //                 API ROUTES 
 // ==========================================
+
+// --- HEALTH CHECK API ---
+app.get('/', (req, res) => {
+    res.json({ status: 'Backend is running!', dbConnected: mongoose.connection.readyState === 1 });
+});
 
 // --- LOGIN API ---
 app.post('/api/login', async (req, res) => {
