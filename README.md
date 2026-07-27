@@ -1,103 +1,146 @@
-# Swastik Medical Store Management System 🏥
+# Swastik Medical Store - POS & Inventory Management System 💊
 
-A complete, full-stack Medical Store (Pharmacy) management system built with React and Node.js. This application allows medical shop owners to manage their inventory, generate bills with beautiful A4 printable invoices, track daily sales, and manage staff user accounts.
+A modern, full-stack Point of Sale (POS) and Inventory Management web application designed specifically for medical stores and pharmacies. 
+
+![Swastik Medical Store](https://medical-store-smoky.vercel.app/favicon.ico)
 
 ---
 
-## 🌟 Features
+## ✨ Features
 
-- **📊 Dashboard**: Get a quick overview of today's total sales, total medicines in stock, and low-stock alerts.
-- **💊 Inventory Management**: Add, edit, and delete medicines. Track batch numbers, expiry dates, and manufacturer details.
-- **🧾 Billing & Checkout**: Add medicines to a cart, apply discounts, and process checkouts. Automatically deducts sold items from inventory.
-- **🖨️ A4 Invoice Printing**: Generate clean, professional A4 invoices that open in a dedicated print window (includes automatic amount-to-words conversion for Indian Rupees).
-- **📈 Sales History**: View a history of all past bills and reprint invoices at any time.
-- **👥 User Management**: Role-based access control. The admin can create staff accounts and change passwords. Secure authentication using JWT and bcrypt.
-- **🎨 Beautiful UI**: A modern, dark-themed UI with glassmorphism effects and fully responsive design.
+- **Dashboard**: Real-time overview of daily sales, total inventory count, and low-stock alerts.
+- **Inventory Management**: Add, update, view, and delete medicines with details like batch number, expiry date, generic name, and manufacturer.
+- **Billing & POS**: 
+  - Add multiple medicines to a cart.
+  - Automatically calculates subtotal, discounts, and net amounts.
+  - Generates a beautifully formatted, printable Tax Invoice with "Amount in Words".
+  - Automatically deducts sold quantities from the main inventory.
+- **Sales History**: View past bills, search by customer name, and reprint past invoices.
+- **User Management**: Role-based access control (Admin, Staff, Pharmacist, Cashier). Only admins can add or remove users.
+- **Authentication**: Secure JWT-based login system with hashed passwords.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: React (using Vite), React Router, Lucide React (for icons)
-- **Backend**: Node.js, Express.js
-- **Database**: SQLite3 (Lightweight, file-based database—no complex setup required!)
-- **Security**: JSON Web Tokens (JWT) for session management, bcryptjs for password hashing.
+This project is built using the **MERN** stack:
+- **Frontend**: React, Vite, React Router, Vanilla CSS (Glassmorphism UI), Lucide Icons.
+- **Backend**: Node.js, Express.js, JSON Web Tokens (JWT), Bcrypt.js.
+- **Database**: MongoDB (via Mongoose).
+- **Deployment**: Configured out-of-the-box for [Vercel](https://vercel.com).
 
 ---
 
-## 🚀 Getting Started (How to Run the Project)
+## 🚀 Local Development Setup
 
-This project has two parts: the **Backend** (Server/Database) and the **Frontend** (React App). You need to run both simultaneously.
+To run this project on your local computer, follow these steps:
 
-### 1. Start the Backend
+### 1. Prerequisites
+- [Node.js](https://nodejs.org/) installed (v16 or higher).
+- A [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) account (or a local MongoDB server).
 
-1. Open a terminal and navigate to the backend folder:
-   ```bash
-   cd backend
-   ```
-2. Install the required Node.js packages:
-   ```bash
-   npm install
-   ```
-3. Start the server:
-   ```bash
-   node server.js
-   ```
-   *(The server will run on `http://localhost:5000` and automatically create the `store.db` SQLite database).*
+### 2. Clone the Repository
+```bash
+git clone https://github.com/codewith-uttam/medical-store.git
+cd medical-store
+```
 
-### 2. Start the Frontend
+### 3. Backend Setup
+```bash
+cd backend
+npm install
+```
+Create a `.env` file inside the `backend` folder and add your MongoDB connection string:
+```env
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/medical_store?retryWrites=true&w=majority
+```
+Start the backend server:
+```bash
+npm run dev
+# Server will run on http://localhost:5000
+```
+*(On the very first run, the backend will automatically create a default admin user).*
 
-1. Open a **new** terminal (keep the backend terminal running) and navigate to the frontend folder:
-   ```bash
-   cd frontend
-   ```
-2. Install the required Node.js packages:
-   ```bash
-   npm install
-   ```
-3. Start the React development server:
-   ```bash
-   npm run dev
-   ```
-4. Open your browser and go to the link shown in the terminal (usually `http://localhost:5173`).
+### 4. Frontend Setup
+Open a new terminal window:
+```bash
+cd frontend
+npm install
+```
+Create a `.env` file inside the `frontend` folder to point it to your local backend:
+```env
+VITE_API_URL=http://localhost:5000
+```
+Start the frontend development server:
+```bash
+npm run dev
+# Frontend will run on http://localhost:5173
+```
 
 ---
 
-## 🔐 Default Login Credentials
+## 🔑 Default Login Credentials
 
-When you run the backend for the first time, it automatically creates a default Admin account:
-
+Once the app is running, you can log in using the default admin account:
 - **Username**: `admin`
 - **Password**: `admin123`
 
-*(It is highly recommended to change this password or create a new admin account via the User Management panel after your first login!)*
+*(It is highly recommended to create a new admin account and delete the default one for security reasons).*
+
+---
+
+## ☁️ Deployment to Vercel
+
+This project includes specific configurations (`vercel.json`) to make deploying to Vercel seamless.
+
+### Deploying the Backend
+1. Go to your Vercel Dashboard and click **Add New Project**.
+2. Import this repository.
+3. Set the **Root Directory** to `backend`.
+4. In the **Environment Variables** section, add your `MONGO_URI`.
+5. Click **Deploy**.
+
+> **Important MongoDB Note**: Ensure that your MongoDB Atlas Network Access (IP Allowlist) is set to `0.0.0.0/0` (Allow access from anywhere). Vercel uses dynamic IP addresses, so restricting IPs will cause the backend to crash!
+
+### Deploying the Frontend
+1. Go back to your Vercel Dashboard and click **Add New Project**.
+2. Import this repository again.
+3. Set the **Root Directory** to `frontend`.
+4. In the **Environment Variables** section, add `VITE_API_URL` and set the value to your deployed Backend URL (e.g., `https://my-backend.vercel.app`).
+5. Click **Deploy**.
 
 ---
 
 ## 📂 Folder Structure
 
 ```
-medical store/
+medical-store/
 │
 ├── backend/
-│   ├── database.js     # Sets up the SQLite tables (Medicines, Bills, Users)
-│   ├── server.js       # The Express API server (handles login, data fetching)
-│   ├── store.db        # The actual database file (auto-generated)
-│   └── package.json    # Backend dependencies
+│   ├── config/
+│   │   └── db.js            # MongoDB connection logic
+│   ├── models/
+│   │   ├── Bill.js          # Mongoose schema for Sales/Invoices
+│   │   ├── Medicine.js      # Mongoose schema for Inventory
+│   │   └── User.js          # Mongoose schema for Authentication
+│   ├── server.js            # Main Express API server & routes
+│   ├── vercel.json          # Configuration for Vercel Serverless Functions
+│   └── package.json         
 │
 ├── frontend/
-│   ├── public/         # Static assets (like background images)
+│   ├── public/              # Static assets (favicons, etc.)
 │   ├── src/
-│   │   ├── components/ # Reusable UI components (ProtectedRoute)
-│   │   ├── pages/      # Main screens (Dashboard, Login, Billing, etc.)
-│   │   ├── App.jsx     # Main layout and routing setup
-│   │   ├── index.css   # Global styles and custom CSS design system
-│   │   └── AuthContext # Manages user login state across the app
-│   └── package.json    # Frontend dependencies
+│   │   ├── components/      # Reusable UI components (ProtectedRoute)
+│   │   ├── pages/           # Main screens (Dashboard, Login, Billing, etc.)
+│   │   ├── App.jsx          # Main layout, Navigation, and routing
+│   │   ├── index.css        # Global CSS design system and variables
+│   │   └── AuthContext.jsx  # Context Provider for global user state
+│   ├── vite.config.js       # Vite bundler configuration
+│   └── package.json         
 │
-└── README.md           # This file
+└── README.md                # This file
 ```
 
 ---
 
-*Created by Swastik Infotech*
+*Created and maintained by [Swastik Infotech]()*
