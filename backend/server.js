@@ -13,7 +13,7 @@ const Bill = require('./models/Bill');
 // 2. SETTING UP THE SERVER
 const app = express();
 const port = 5000;
-const JWT_SECRET = 'swastik_medical_secret_2024';
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_for_local_dev';
 
 app.use(cors());
 app.use(express.json());
